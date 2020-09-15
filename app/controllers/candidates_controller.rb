@@ -8,8 +8,14 @@ class CandidatesController < ApplicationController
     end
 
     def create
-        @candidate = Candidate.new(candidate_params)
-        @candidate.save
+        @candidate = nil
+
+        if Candidate.where(email: candidate_params[:email]).exists?
+            @candidate = Candidate.where(email: candidate_params[:email]).take
+        else
+            @candidate = Candidate.new(candidate_params)
+            @candidate.save
+        end
 
         redirect_to @candidate
     end

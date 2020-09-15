@@ -6,3 +6,47 @@
 <p>Email: <%= @candidate.email %> </p>
 
 <br>
+
+<strong>Interview Details</strong><br>
+
+<%= form_with(model: [ @candidate, @candidate.interviews.build ], local: true) do |form| %>
+    <p>
+        <%= form.label :'Start Date' %>
+        <%= form.date_field :start_date %>
+
+        <%= form.label :'Start Time' %>
+        <%= form.time_field :start_time %>
+    </p>
+
+    <p>
+        <%= form.label :'End Date' %>
+        <%= form.date_field :end_date %>
+
+        <%= form.label :'End Time' %>
+        <%= form.time_field :end_time %>
+    </p>
+
+    <%= form.submit :'Schedule Interview' %>
+<% end %>
+
+<br><br>
+<strong>Scheduled Already</strong>
+
+<table>
+    <tr>
+        <td>Start Date</td>
+        <td>Start Time</td>
+        <td>End Date</td>
+        <td>End Time</td>
+    </tr>
+
+    <% @candidate.interviews.each do |interview| %>
+        <tr>
+            <td> <%= interview.start_date %> </td>
+            <td> <%= interview.start_time %> </td>
+            <td> <%= interview.end_date %> </td>
+            <td> <%= interview.end_time %> </td>
+        </tr>
+    <% end %>
+    
+</table>
