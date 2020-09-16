@@ -4,20 +4,26 @@ class CandidatesController < ApplicationController
     end
 
     def new
-
+        @candidate = Candidate.new
     end
 
     def create
-        @candidate = nil
-
         if Candidate.where(email: candidate_params[:email]).exists?
             @candidate = Candidate.where(email: candidate_params[:email]).take
+
+            redirect_to @candidate
         else
             @candidate = Candidate.new(candidate_params)
-            @candidate.save
+
+            if @candidate.save
+                redirect_to @candidate
+            else
+                render 'new'
+            end
         end
 
-        redirect_to @candidate
+        
+        
     end
 
     private

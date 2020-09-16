@@ -9,44 +9,52 @@
 
 <strong>Interview Details</strong><br>
 
-<%= form_with(model: [ @candidate, @candidate.interviews.build ], local: true) do |form| %>
-    <p>
-        <%= form.label :'Start Date' %>
-        <%= form.date_field :start_date %>
+<% @candidate.interviews.each do |interview| %>
+    <% if interview.nil? %>
+        NO ERROR
+    <% else %>
+        <% if interview.errors.any? %>
+            <div>
+                <h2>
+                    <%= pluralize(interview.errors.count, "error") %> Prohibited this interview: 
+                </h2>
 
-        <%= form.label :'Start Time' %>
-        <%= form.time_field :start_time %>
-    </p>
-
-    <p>
-        <%= form.label :'End Date' %>
-        <%= form.date_field :end_date %>
-
-        <%= form.label :'End Time' %>
-        <%= form.time_field :end_time %>
-    </p>
-
-    <%= form.submit :'Schedule Interview' %>
+                <ul>
+                    <% interview.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                    <% end %>
+                </ul>
+            </div>
+        <% end %>
+    <% end %>
 <% end %>
+
+<%= render 'interviews/form' %>
 
 <br><br>
 <strong>Scheduled Already</strong>
 
 <table>
     <tr>
-        <td>Start Date</td>
-        <td>Start Time</td>
-        <td>End Date</td>
-        <td>End Time</td>
+        <th>ID</th>
+        <th>Start Date</th>
+        <th>Start Time</th>
+        <th>End Date</th>
+        <th>End Time</th>
+        <th colspan="2"></th>
     </tr>
 
     <% @candidate.interviews.each do |interview| %>
-        <tr>
-            <td> <%= interview.start_date %> </td>
-            <td> <%= interview.start_time %> </td>
-            <td> <%= interview.end_date %> </td>
-            <td> <%= interview.end_time %> </td>
-        </tr>
+        <%if interview.id != nil %>
+            <tr>
+                <td> <%= interview.id %> </td>
+                <td> <%= interview.start_date %> </td>
+                <td> <%= interview.start_time %> </td>
+                <td> <%= interview.end_date %> </td>
+                <td> <%= interview.end_time %> </td>
+                <td> <%= link_to 'edit', edit_candidate_interview_path(@candidate.id, interview.id) %>
+            </tr>
+        <% end %>
     <% end %>
     
 </table>

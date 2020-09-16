@@ -1,9 +1,26 @@
 class InterviewsController < ApplicationController
+    def edit
+        @interview = Interview.find(params[:id])
+    end
+    
     def create
         @candidate = Candidate.find(params[:candidate_id])
-        @interview = @candidate.interviews.create(interview_params)
+        @interview = @candidate.interviews.new(interview_params)
 
-        redirect_to candidate_path(@candidate)
+        if @interview.save
+            redirect_to candidate_path(@candidate)
+        else
+            render :template => 'candidates/show'
+        end
+        
+    end
+
+    def update
+        @interview = Interview.find(params[:id])
+
+        @interview.update(interview_params)
+
+        redirect_to candidate_path(@interview.candidate)
     end
 
     private
