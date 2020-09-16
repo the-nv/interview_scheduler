@@ -1,0 +1,60 @@
+<h1>New Schedule</h1>
+
+<strong>Candidate Details</strong><br>
+
+<p>Name: <%= @candidate.name %> </p>
+<p>Email: <%= @candidate.email %> </p>
+
+<br>
+
+<strong>Interview Details</strong><br>
+
+<% @candidate.interviews.each do |interview| %>
+    <% if interview.nil? %>
+        NO ERROR
+    <% else %>
+        <% if interview.errors.any? %>
+            <div>
+                <h2>
+                    <%= pluralize(interview.errors.count, "error") %> Prohibited this interview: 
+                </h2>
+
+                <ul>
+                    <% interview.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                    <% end %>
+                </ul>
+            </div>
+        <% end %>
+    <% end %>
+<% end %>
+
+<%= render 'interviews/form' %>
+
+<br><br>
+<strong>Scheduled Already</strong>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Start Date</th>
+        <th>Start Time</th>
+        <th>End Date</th>
+        <th>End Time</th>
+        <th colspan="2"></th>
+    </tr>
+
+    <% @candidate.interviews.each do |interview| %>
+        <%if interview.id != nil %>
+            <tr>
+                <td> <%= interview.id %> </td>
+                <td> <%= interview.start_date.strftime("%d %B %Y") %> </td>
+                <td> <%= interview.start_time.strftime("%H:%M %p") %> </td>
+                <td> <%= interview.end_date.strftime("%d %B %Y") %> </td>
+                <td> <%= interview.end_time.strftime("%H:%M %p") %> </td>
+                <td> <%= link_to 'edit', edit_candidate_interview_path(@candidate.id, interview.id) %>
+            </tr>
+        <% end %>
+    <% end %>
+    
+</table>

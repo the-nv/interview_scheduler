@@ -1,0 +1,19 @@
+<%= form_with(model: [@candidate, @candidate.interviews.build], local: true) do |form| %>
+    <p>
+        <%= form.label :'Start Date' %>
+        <%= form.date_field :start_date %>
+
+        <%= form.label :'Start Time' %>
+        <%= form.time_field :start_time %>
+    </p>
+
+    <p>
+        <%= form.label :'End Date' %>
+        <%= form.date_field :end_date %>
+
+        <%= form.label :'End Time' %>
+        <%= form.time_field :end_time %>
+    </p>
+
+    <%= form.submit :'Schedule Interview' %>
+<% end %>

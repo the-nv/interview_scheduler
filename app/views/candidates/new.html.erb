@@ -1,0 +1,32 @@
+<h1>New Schedule</h1>
+
+<strong>Candidate Details</strong><br>
+<%= form_with scope: :candidate, url: candidates_path, local: true do |form| %>
+    <% if @candidate.errors.any? %>
+        <div>
+            <h2>
+                <%= pluralize(@candidate.errors.count, "error") %> Prohibited this candidate: 
+            </h2>
+
+            <ul>
+                <% @candidate.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <br>
+    <p>
+        <%= form.label :Name %>
+        <%= form.text_field :name %>
+    </p>
+
+    <p>
+        <%= form.label :Email %>
+        <%= form.text_field :email %>
+    </p>
+
+    <%= form.submit :proceed %>
+
+<% end %>

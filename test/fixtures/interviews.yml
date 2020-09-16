@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_date: 2020-09-15
+  start_time: 2020-09-15 14:54:23
+  end_date_date: MyString
+  end_time: 2020-09-15 14:54:23
+  candidate: one
+
+two:
+  start_date: 2020-09-15
+  start_time: 2020-09-15 14:54:23
+  end_date_date: MyString
+  end_time: 2020-09-15 14:54:23
+  candidate: two

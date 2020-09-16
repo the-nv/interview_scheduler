@@ -1,0 +1,31 @@
+<h1>Edit interview</h1>
+
+<strong>Candidate Detail</strong>
+
+<p>
+    Name: <%= @interview.candidate.name %>
+</p>
+
+<p>
+    Email: <%= @interview.candidate.email %>
+</p>
+
+<%= form_with(model: @interview, url: candidate_interview_path(@interview.candidate.id) ,local: true) do |form| %>
+    <p>
+        <%= form.label :'Start Date' %>
+        <%= form.date_field :start_date %>
+
+        <%= form.label :'Start Time' %>
+        <%= form.time_field :start_time %>
+    </p>
+
+    <p>
+        <%= form.label :'End Date' %>
+        <%= form.date_field :end_date %>
+
+        <%= form.label :'End Time' %>
+        <%= form.time_field :end_time %>
+    </p>
+
+    <%= form.submit :'Schedule Interview' %>
+<% end %>
