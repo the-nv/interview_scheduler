@@ -16,6 +16,7 @@ class CandidatesController < ApplicationController
             @candidate = Candidate.new(candidate_params)
 
             if @candidate.save
+                UsermailerMailer.with(candidate: @candidate).sample_email.deliver_now
                 redirect_to @candidate
             else
                 render 'new'
